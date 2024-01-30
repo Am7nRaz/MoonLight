@@ -1,67 +1,81 @@
-# CDN-Cloudflare
-# دریافت سرتیفیکت
-Get your server up to date:
+# My Things 1
+
+First Update your server :
 
 ```bash
 apt update && apt upgrade -y
 ```
 
-Also install ``curl`` and ``socat``:
+install ``hiddify`` or ``MHSanaei`` or ``alireza0`` or ``Kafka``:
+
+``hiddify``:
 
 ```bash
-apt install curl socat -y
+curl https://install.hiddify.com/release |bash
 ```
-
-# Install Acme Script
-
-Download and install the Acme script for getting a free SSL certificate:
+OR
+```bash
+sudo apt update&&sudo apt install -y curl&& curl -sSL https://raw.githubusercontent.com/hiddify/hiddify-manager/main/common/download.sh | sudo bash -s release
+```
+``MHSanaei``:
 
 ```bash
-curl https://get.acme.sh | sh
+bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
 ```
-
-# Get Free SSL Certificate
-
-Set the default provider to Let’s Encrypt:
+``alireza0``:
 
 ```bash
-~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
+bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh)
 ```
-
-Register your account for a free SSL certificate. In the next command, replace ``xxxx@xxxx.com`` by your actual email address:
+``Kafka`` EN VERSION:
 
 ```bash
-~/.acme.sh/acme.sh --register-account -m xxxx@xxxx.com
+bash <(curl -Ls https://raw.githubusercontent.com/FranzKafkaYu/x-ui/master/install_en.sh)
 ```
-
-Obtain an SSL certificate. In the next command, replace host.mydomain.com by your actual host name:
-
-``` bash
-~/.acme.sh/acme.sh --issue -d host.mydomain.com --standalone
-```
-
-After a minute or so, the script terminates. On success, you will receive feedback as to the location of the certificate and key:
-
-<pre>
-Your cert is in: /root/.acme.sh/host.mydomain.com/host.mydomain.com.cer
-Your cert key is in: /root/.acme.sh/host.mydomain.com/host.mydomain.com.key
-The intermediate CA cert is in: /root/.acme.sh/host.mydomain.com/ca.cer
-And the full chain certs is there: /root/.acme.sh/host.mydomain.com/fullchain.cer
-</pre>
-
-You cannot use the certificate and key in their current locations, as these may be temporary. Therefore install the certificate and key to a permanent location. In the next command, replace host.mydomain.com by your actual host name:
+Worker code :
 
 ```bash
-~/.acme.sh/acme.sh --installcert -d host.mydomain.com --key-file /root/private.key --fullchain-file /root/cert.crt
+addEventListener(
+   "fetch", event => {
+       
+       const ip = event.request.headers.get('cf-connecting-ip') || event.request.headers.get('x-forwarded-for') || (event.request.socket && event.request.socket.remoteAddress);
+       let url = new URL(event.request.url);
+       const worker_domain=url.hostname;
+       url.hostname = "sub.domain.com";                        
+       url.protocol = event.request.headers.get('x-forwarded-proto') || "https";
+       let request = new Request(url, event.request);
+       if (ip)
+        request.headers.set('cf-connecting-ip', ip);
+        request.headers.set('Host', worker_domain);
+       event.respondWith(
+           fetch(request)
+       )
+   }
+)
+
 ```
 
-# اسکن آی پی سالم کلادفلر (تحت وب)  
-<a href="https://vfarid.github.io/cf-ip-scanner" target="_blank"> CF IP Scanner github (تحت وب) </a>
+Server Optimizer : 
 
-<a href="https://cloudflare-v2ray.vercel.app/" target="_blank"> V2ray Cloudflare github (تحت وب) </a>
+```bash
+sudo apt update -q && sudo apt install -y sudo wget
+```
+```bash
+sudo -i
+```
+```bash
+wget "https://raw.githubusercontent.com/hawshemi/Linux-Optimizer/main/linux-optimizer.sh" -O linux-optimizer.sh && chmod +x linux-optimizer.sh && bash linux-optimizer.sh 
+```
+Press 1
 
-<a href="https://cloudflare-scanner.vercel.app/" target="_blank"> Cloudflare Scanner github (تحت وب) </a>
+Online tools i need : 
 
-<a href="https://ircfspace.github.io/scanner/" target="_blank"> IRCF Scanner github (تحت وب) </a>
+<a href="https://drunkleen.github.io/xray-fragmenter/" target="_blank"> Fragmenter Site </a>
 
-با تشکر از [ircf.space](https://github.com/ircfspace/scanner)
+Download latest software : 
+
+<a href="https://github.com/2dust/v2rayNG/releases" target="_blank"> V2RAYNG Android Releases </a>
+
+<a href="https://github.com/2dust/v2rayN/releases" target="_blank"> V2RAYNG PC Releases </a>
+
+<a href="https://..../releases" target="_blank"> My Own App ( SOON ) </a>
